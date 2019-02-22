@@ -4,15 +4,10 @@
   "description": "THis is a nice readme about this project",
   "main": "index.js",
   "scripts": {
-<<<<<<< HEAD
-    "dev" : "next",
-    "build" : "next build" ,
-    "start" : "next start",
-=======
-    "dev": "next",
+    "dev": "node server.js",
     "build": "next build",
     "start": "next start",
->>>>>>> 3c90772f212037140699017e0e64f12fdde485ed
+    "start": "NODE_ENV=production node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -27,16 +22,9 @@
   },
   "homepage": "https://github.com/alexander-e-andrews/CSSeniorDisplayProject#readme",
   "dependencies": {
-<<<<<<< HEAD
+    "express": "^4.16.4",
     "next": "^8.0.1",
     "react": "^16.8.2",
     "react-dom": "^16.8.2"
-=======
-    "isomorphic-unfetch": "^3.0.0",
-    "next": "^8.0.1",
-    "react": "^16.8.2",
-    "react-dom": "^16.8.2",
-    "react-markdown": "^4.0.6"
->>>>>>> 3c90772f212037140699017e0e64f12fdde485ed
   }
 }
