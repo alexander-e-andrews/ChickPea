@@ -1,10 +1,12 @@
 import Frame from '../components/Admin/Frame.js'
 import Upload from '../components/Upload.js'
+import List from '../components/List.js'
 
 const Slideshows = () => (
   <Frame>
     <h1>Slideshows</h1>
     <Upload />
+    <List />
     <style jsx>
       {`
         h1 {

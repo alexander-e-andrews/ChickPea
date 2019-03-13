@@ -1,7 +1,11 @@
-import { Component } from 'react'
-import React from 'react'
-import Dropzone from 'react-dropzone'
-import axios from 'axios'
+import { Component } from "react"
+import React from "react"
+import axios from "axios"
+import dynamic from "next/dynamic"
+
+const DropzoneWithNoSSR = dynamic(() => import("react-dropzone"), {
+  ssr: false
+})
 
 class Upload extends Component {
   constructor(props) {
@@ -44,11 +48,10 @@ class Upload extends Component {
   render() {
     return (
       <div>
-        <Dropzone
-          accept='image/*'
+        <DropzoneWithNoSSR
+          accept="image/*"
           onDropAccepted={this.handleOnDropAccepted}
           onDropRejected={this.handleOnDropRejected}
-          multiple={false}
         >
           {({ getRootProps, getInputProps, isDragActive }) => {
             return (
@@ -62,12 +65,13 @@ class Upload extends Component {
               </div>
             )
           }}
-        </Dropzone>
+        </DropzoneWithNoSSR>
         <div className='list'>
           {this.state.SLIDE_LIST.map(item => (
             <div className='element'>{item.data}</div>
           ))}
         </div>
+
         <style jsx>
           {`
             .upload {
@@ -78,19 +82,7 @@ class Upload extends Component {
               border: 2px dashed #adadad;
               cursor: pointer;
               background: white;
-              margin: 40px auto;
-              max-width: 640px;
-            }
-
-            .list {
-              borderwidth: 2;
-              borderscolor: black;
-            }
-
-            .element {
-              margin 10px;
-              border: 2px black solid ;
-              background: white;
+              border: 1px black dashed;
             }
           `}
         </style>
