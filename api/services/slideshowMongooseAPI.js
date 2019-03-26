@@ -45,11 +45,11 @@ async function returnSlideShows() {
 async function getSlideShow(id) {
   var slideShow = slideShowSchema
   try {
-  return await slideShow
-    .findById(id)
-    .populate("slides")
-    .exec()
-  }catch(e){
+    return await slideShow
+      .findById(id)
+      .populate("slides")
+      .exec()
+  } catch (e) {
     // eslint-disable-next-line no-console
     console.error(e)
   }
@@ -102,9 +102,7 @@ async function getSlide(id) {
 
 async function deleteSlide(id) {
   var slide = slideSchema
-  await slide
-    .remove({ _id: id })
-    .exec()
+  await slide.remove({ _id: id }).exec()
 }
 
 /**
@@ -146,12 +144,12 @@ module.exports = {
   getSlide: async function(id) {
     return await getSlide(id)
   },
-  deleteSlide: async function(id){
+  deleteSlide: async function(id) {
     return await deleteSlide(id)
   },
   clearALLSlidesandShows: async function() {
     return await clearALLSlidesandShows()
   },
-  slide: slideSchema.SLIDE,
-  slideShow: slideShowSchema.SLIDESHOW
+  slide: slideSchema,
+  slideShow: slideShowSchema
 }
