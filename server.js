@@ -22,6 +22,9 @@ app
     let db = new dbAPI()
 
     server.get("/mongoTest", (req, res) => {
+      var dick = slidesAPI.slide
+      // eslint-disable-next-line no-console
+      console.log(slidesAPI)
       async function ryan() {
         // eslint-disable-next-line no-console
         console.log("Inside ryan")
@@ -30,9 +33,9 @@ app
         console.log(idNum)
         //slidesAPI.deleteSlideShow(idNum[0]._id)
       }
-      ryan()
+      //ryan()
     })
-    
+
     server.get("/p/:id", (req, res) => {
       const actualPage = "/post"
       const queryParams = { id: req.params.id }
@@ -53,6 +56,9 @@ app
           })
         }
         const filePath = files.data.path
+        var dick = slidesAPI.slide
+        // eslint-disable-next-line no-console
+        console.log(dick)
       })
     })
 
