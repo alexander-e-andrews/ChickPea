@@ -23,8 +23,11 @@ app
 
     server.get("/mongoTest", (req, res) => {
       var dick = slidesAPI.slide
+      dick = mongoose.model("SLIDE", dick)
       // eslint-disable-next-line no-console
-      console.log(slidesAPI)
+      //console.log(slidesAPI)
+      dick.title = "THis is a titel"
+      slidesAPI.saveSlide(dick)
       async function ryan() {
         // eslint-disable-next-line no-console
         console.log("Inside ryan")

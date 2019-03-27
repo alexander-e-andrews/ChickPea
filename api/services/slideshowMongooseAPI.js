@@ -100,6 +100,15 @@ async function getSlide(id) {
   await slide.findById(id).exec()
 }
 
+async function saveSlide(slide) {
+  // eslint-disable-next-line no-console
+  console.log(slide)
+  // eslint-disable-next-line no-console
+  console.log("///////////////////////////////////////////////")
+  // eslint-disable-next-line no-console
+  console.log(slideSchema)
+}
+
 async function deleteSlide(id) {
   var slide = slideSchema
   await slide.remove({ _id: id }).exec()
@@ -143,6 +152,9 @@ module.exports = {
   //For functions, that need args. this is the only nice way I found
   getSlide: async function(id) {
     return await getSlide(id)
+  },
+  saveSlide: async function(slide) {
+    saveSlide(slide)
   },
   deleteSlide: async function(id) {
     return await deleteSlide(id)

@@ -10,4 +10,5 @@ const SLIDE = new Schema({
   duration: { type: Number, default: 5, min: 1 }
 })
 
-module.exports = mongoose.model("SLIDE", SLIDE)
+//module.exports = mongoose.model("SLIDE", SLIDE)
+module.exports = SLIDE
