@@ -14,12 +14,18 @@ try {
 }
 
 /**
+ * returns a new slideshow object for editing and saving
+ */
+function createSlideShow() {
+  return new slideShowSchema()
+}
+
+/**
  * Will return an array like {[_id, title], [_id, title]}
  * Returns:
  * _id: _id of the slide shows
  * title: The title of the slideshow
  */
-
 async function returnSlideShows() {
   // eslint-disable-next-line no-console
   //console.log(slideShowSchema)
@@ -76,6 +82,13 @@ async function deleteSlideShow(id) {
 }
 
 /**
+ * returns a new slide object for editing and saving
+ */
+function createSlide() {
+  return new slideSchema()
+}
+
+/**
  * Will return an array like {[_id, title], [_id, title]}
  * Returns:
  * _id: _id of the slide
@@ -101,12 +114,21 @@ async function getSlide(id) {
 }
 
 async function saveSlide(slide) {
+  var newEntry = new slideSchema()
+
   // eslint-disable-next-line no-console
-  console.log(slide)
+  console.log(newEntry)
   // eslint-disable-next-line no-console
   console.log("///////////////////////////////////////////////")
   // eslint-disable-next-line no-console
-  console.log(slideSchema)
+  console.log(newEntry.constructor)
+  if (slide instanceof slideSchema) {
+    // eslint-disable-next-line no-console
+    console.log("RYAN GOSLING SUCKS ASS")
+  } else {
+    // eslint-disable-next-line no-console
+    console.error("Object is not a slide")
+  }
 }
 
 async function deleteSlide(id) {
@@ -136,6 +158,9 @@ async function clearALLSlidesandShows() {
 }
 
 module.exports = {
+  createSlideShow: function() {
+    return createSlideShow()
+  },
   returnSlideShows: async function() {
     return await returnSlideShows()
   },
@@ -144,6 +169,9 @@ module.exports = {
   },
   deleteSlideShow: async function(id) {
     return await deleteSlideShow(id)
+  },
+  createSlide: function() {
+    return createSlide()
   },
   //For functions without args, and just do function:function
   returnSlides: async function() {

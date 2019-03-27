@@ -9,76 +9,65 @@ const port = process.env.PORT || 3000
 const app = next({ dev })
 const handle = app.getRequestHandler()
 
-const dbAPI = require("./api/services/mongooseAPI")
+try {
+  const dbAPI = require("./api/services/mongooseAPI")
 
-const devF = require("./.dev.js")
+  const slidesAPI = require("./api/services/slideshowMongooseAPI")
 
-const slidesAPI = require("./api/services/slideshowMongooseAPI")
+  app
+    .prepare()
+    .then(() => {
+      const server = express()
+      //let db = new dbAPI()
 
-app
-  .prepare()
-  .then(() => {
-    const server = express()
-    let db = new dbAPI()
+      server.get("/mongoTest", (req, res) => {
+        slidesAPI.saveSlide(slidesAPI.createSlide())
+      })
 
-    server.get("/mongoTest", (req, res) => {
-      var dick = slidesAPI.slide
-      dick = mongoose.model("SLIDE", dick)
-      // eslint-disable-next-line no-console
-      //console.log(slidesAPI)
-      dick.title = "THis is a titel"
-      slidesAPI.saveSlide(dick)
-      async function ryan() {
-        // eslint-disable-next-line no-console
-        console.log("Inside ryan")
-        var idNum = await slidesAPI.returnSlideShows()
-        // eslint-disable-next-line no-console
-        console.log(idNum)
-        //slidesAPI.deleteSlideShow(idNum[0]._id)
-      }
-      //ryan()
-    })
+      server.get("/p/:id", (req, res) => {
+        const actualPage = "/post"
+        const queryParams = { id: req.params.id }
+        app.render(req, res, actualPage, queryParams)
+      })
 
-    server.get("/p/:id", (req, res) => {
-      const actualPage = "/post"
-      const queryParams = { id: req.params.id }
-      app.render(req, res, actualPage, queryParams)
-    })
+      server.post("/api/slide/upload", (req, res) => {
+        var form = new formidable.IncomingForm()
+        form.uploadDir = "./uploads"
+        form.keepExtensions = true
+        form.multiples = false
+        //parse the sent data and save it + the path for alex
+        form.parse(req, (err, fields, files) => {
+          if (err) {
+            res.json({
+              result: "error",
+              message: "Cannot upload file, Error: ${err}"
+            })
+          }
+          const filePath = files.data.path
+          var dick = slidesAPI.slide
+          // eslint-disable-next-line no-console
+          console.log(dick)
+        })
+      })
 
-    server.post("/api/slide/upload", (req, res) => {
-      var form = new formidable.IncomingForm()
-      form.uploadDir = "./uploads"
-      form.keepExtensions = true
-      form.multiples = false
-      //parse the sent data and save it + the path for alex
-      form.parse(req, (err, fields, files) => {
-        if (err) {
-          res.json({
-            result: "error",
-            message: "Cannot upload file, Error: ${err}"
-          })
-        }
-        const filePath = files.data.path
-        var dick = slidesAPI.slide
-        // eslint-disable-next-line no-console
-        console.log(dick)
+      server.use("/uploads", express.static("uploads"))
+
+      server.get("*", (req, res) => {
+        return handle(req, res)
+      })
+
+      server.listen(port, err => {
+        if (err) throw err
+        // eslint-disable-next-line
+        console.log("> Ready on http://localhost:" + port)
       })
     })
-
-    server.use("/uploads", express.static("uploads"))
-
-    server.get("*", (req, res) => {
-      return handle(req, res)
-    })
-
-    server.listen(port, err => {
-      if (err) throw err
+    .catch(ex => {
       // eslint-disable-next-line
-      console.log("> Ready on http://localhost:" + port)
+      console.error(ex.stack)
+      process.exit(1)
     })
-  })
-  .catch(ex => {
-    // eslint-disable-next-line
-    console.error(ex.stack)
-    process.exit(1)
-  })
+} catch (e) {
+  // eslint-disable-next-line no-console
+  console.log(e)
+}

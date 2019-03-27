@@ -1,7 +1,5 @@
 const devF = require("../../.dev.js")
 const mongoose = require("mongoose")
-//const schemas = require("../models/simpleModel")
-
 
 var db
 class mongooseAPI {
