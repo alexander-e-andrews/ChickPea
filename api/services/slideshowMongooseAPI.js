@@ -13,6 +13,7 @@ try {
   console.log(e)
 }
 
+//Fuck
 /**
  * returns a new slideshow object for editing and saving
  */
@@ -114,14 +115,6 @@ async function getSlide(id) {
 }
 
 async function saveSlide(slide) {
-  var newEntry = new slideSchema()
-
-  // eslint-disable-next-line no-console
-  console.log(newEntry)
-  // eslint-disable-next-line no-console
-  console.log("///////////////////////////////////////////////")
-  // eslint-disable-next-line no-console
-  console.log(newEntry.constructor)
   if (slide instanceof slideSchema) {
     // eslint-disable-next-line no-console
     console.log("RYAN GOSLING SUCKS ASS")
