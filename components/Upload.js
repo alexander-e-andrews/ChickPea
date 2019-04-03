@@ -1,9 +1,9 @@
-import { Component } from "react"
-import React from "react"
-import axios from "axios"
-import dynamic from "next/dynamic"
+import { Component } from 'react'
+import React from 'react'
+import axios from 'axios'
+import dynamic from 'next/dynamic'
 
-const DropzoneWithNoSSR = dynamic(() => import("react-dropzone"), {
+const DropzoneWithNoSSR = dynamic(() => import('react-dropzone'), {
   ssr: false
 })
 
@@ -49,7 +49,7 @@ class Upload extends Component {
     return (
       <div>
         <DropzoneWithNoSSR
-          accept="image/*"
+          accept='image/*'
           onDropAccepted={this.handleOnDropAccepted}
           onDropRejected={this.handleOnDropRejected}
         >
@@ -76,7 +76,7 @@ class Upload extends Component {
           {`
             .upload {
               padding: 20px;
-              font-family: "Open Sans", sans-serif;
+              font-family: 'Open Sans', sans-serif;
               text-align: center;
               border-radius: 4px;
               border: 2px dashed #adadad;
