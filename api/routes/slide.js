@@ -15,7 +15,36 @@ router
   })
   .post('/', (req, res, next) => {
     const { title, description, duration, slideshow } = req.body
-    // TODO(@alexander-e-andrews) Write code for adding a slide to the database
+    const form = new formidable.IncomingForm()
+    form.uploadDir = '../../uploads'
+    form.keepExtensions = true
+    form.multiples = false
+    // Parse the sent data and save it + the path for alex
+    form.parse(req, (err, fields, files) => {
+      if (err) {
+        res.json({
+          result: 'error',
+          message: 'Cannot upload file, Error: ${err}'
+        })
+      } else {
+        const filePath = files.data.path
+        Slide.create(
+          {
+            slideshow: slideshow,
+            data: filePath,
+            type: 'photo',
+            title: title,
+            description: description,
+            duration: duration
+          },
+          (err, slideToSave) => {
+            if (err)
+              res.json({ result: 'error', message: 'Cannot save slide to database, Error: ${err}' })
+            //otherwise slide is saved
+          }
+        )
+      }
+    })
   })
 
 // Route: /api/v1/slide/:id
@@ -45,23 +74,5 @@ router
     const { id } = req.params
     // TODO(@alexander-e-andrews) Write code for editing a slide
   })
-
-// Temporary code for upload (should be merged with the POST /api/v1/slide above)
-router.post('/upload', (req, res) => {
-  const form = new formidable.IncomingForm()
-  form.uploadDir = './uploads'
-  form.keepExtensions = true
-  form.multiples = false
-  // Parse the sent data and save it + the path for alex
-  form.parse(req, (err, fields, files) => {
-    if (err) {
-      res.json({
-        result: 'error',
-        message: 'Cannot upload file, Error: ${err}'
-      })
-    }
-    const filePath = files.data.path
-  })
-})
 
 module.exports = router
