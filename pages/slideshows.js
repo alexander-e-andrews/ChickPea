@@ -26,12 +26,16 @@ class Slideshows extends React.Component {
         <div className='wrapper'>
           <SlideshowList ref={this.slideshowList} />
           <Dialog />
-          <Button
-            text={'+ Add new slideshow'}
-            color={'#8bc34a'}
-            onClick={this.add}
-            style={{ marginLeft: 0, width: '100%' }}
-          />
+          <form>
+            Title:
+            <input type='text' name='name' />
+            <Button
+              text={'+ Add new slideshow'}
+              color={'#8bc34a'}
+              onClick={this.add}
+              style={{ marginLeft: 0, width: '100%' }}
+            />
+          </form>
         </div>
         <style jsx>
           {`
@@ -48,6 +52,19 @@ class Slideshows extends React.Component {
           `}
         </style>
       </Frame>
+    )
+  }
+}
+
+class Popup extends React.Component {
+  render() {
+    return (
+      <div className='popup'>
+        <div className='popup_inner'>
+          <h1>{this.props.text}</h1>
+          <button onClick={this.props.closePopup}>close me</button>
+        </div>
+      </div>
     )
   }
 }
