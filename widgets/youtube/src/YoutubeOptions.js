@@ -52,7 +52,6 @@ class YoutubeOptions extends Component {
             type={'text'}
             name={'title'}
             value={title}
-            placeholder={'Optional title...'}
             onChange={this.handleChange}
           />
         </Form>
