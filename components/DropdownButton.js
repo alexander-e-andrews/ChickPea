@@ -1,28 +1,12 @@
 import React, { Component } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library, config } from '@fortawesome/fontawesome-svg-core'
-import {
-  faPlay,
-  faFont,
-  faList,
-  faMousePointer,
-  faCloudSun,
-  faExclamationTriangle,
-  faGifts,
-  faGlobe,
-  faPlus
-} from '@fortawesome/free-solid-svg-icons'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { fab } from '@fortawesome/free-brands-svg-icons'
 
 config.autoAddCss = false
-library.add(faPlus)
-library.add(faList)
-library.add(faPlay)
-library.add(faFont)
-library.add(faExclamationTriangle)
-library.add(faMousePointer)
-library.add(faCloudSun)
-library.add(faGifts)
-library.add(faGlobe)
+library.add(fas)
+library.add(fab)
 
 class DropdownButton extends Component {
   constructor() {
