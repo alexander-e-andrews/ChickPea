@@ -93,7 +93,7 @@ router
 
         return slide
           .save()
-          .then(() => CommonHelper.broadcastUpdate(res.io))
+          .then(CommonHelper.broadcastUpdate)
           .then(() => {
             return res.json({ success: true })
           })

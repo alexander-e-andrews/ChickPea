@@ -26,7 +26,7 @@ router
         if (!slideshow) {
           next(new Error('Slideshow not created'))
         }
-        return CommonHelper.broadcastUpdate(res.io).then(() => res.json(slideshow))
+        return CommonHelper.broadcastUpdate().then(() => res.json(slideshow))
       })
       .catch(err => next(err))
   })
@@ -91,7 +91,7 @@ router
 
         return slideshow
           .save()
-          .then(() => CommonHelper.broadcastUpdate(res.io))
+          .then(CommonHelper.broadcastUpdate)
           .then(() => {
             return res.json({ success: true })
           })
