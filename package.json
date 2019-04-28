@@ -60,9 +60,7 @@
     "react-youtube": "^7.9.0",
     "socket.io": "^2.2.0",
     "socket.io-client": "^2.2.0",
-    "styled-components": "^4.2.0",
-    "superagent": "^5.0.5",
-    "webfontloader": "^1.6.28"
+    "styled-components": "^4.2.0"
   },
   "devDependencies": {
     "cross-env": "^5.2.0"
