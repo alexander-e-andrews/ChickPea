@@ -49,7 +49,6 @@ class WebOptions extends Component {
           <Input
             inline={false}
             label={'Widget title'}
-            placeholder={'Optional title...'}
             type={'text'}
             name={'title'}
             value={title}
