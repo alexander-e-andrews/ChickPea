@@ -26,12 +26,11 @@ class AnnouncementContent extends Component {
     } = this.props
     return (
       <div className='announce'>
-        <div className='background'>
-          <div>{'One'}</div>
-          <div>{'Two'}</div>
-          <div>{'Three'}</div>
+        <div className='background' />
+        <div className='title'>
+          {'Announcment'} <div className='text'>{text}</div>
         </div>
-        <div className='text'>{text}</div>
+
         <style jsx>
           {`
             .announce {
@@ -46,7 +45,7 @@ class AnnouncementContent extends Component {
               font-family: 'Open Sans', sans-serif;
               display: flex;
               flex-direction: row;
-              justify-content: center;
+              justify-content: top, center;
               align-items: center;
             }
             .announce .background {
@@ -59,10 +58,18 @@ class AnnouncementContent extends Component {
             }
             .announce .text {
               font-family: 'Open Sans', sans-serif;
-              font-size: 1.3em;
+              font-size: 0.9em;
               padding: 16px;
               font-weight: 600;
               text-align: center;
+              z-index: 1;
+            }
+            .announce .title {
+              font-family: 'Open Sans', sans-serif;
+              font-size: 1.5em;
+              padding: 16px;
+              font-weight: 600;
+              text-align: top, left;
               z-index: 1;
             }
           `}
