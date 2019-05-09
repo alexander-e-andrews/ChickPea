@@ -106,6 +106,14 @@ class SlideEditDialog extends React.Component {
               value={data}
               onChange={this.handleChange}
             />
+          ) : type == 'freeform' || upload ? (
+            <Input
+              type={'freeform'}
+              label={'Slide content'}
+              name={'data'}
+              value={data}
+              onChange={this.handleChange}
+            />
           ) : (
             <Input
               type={'text'}
