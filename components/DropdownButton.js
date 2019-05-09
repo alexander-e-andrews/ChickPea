@@ -7,6 +7,7 @@ import {
   faList,
   faMousePointer,
   faCloudSun,
+  faExclamationTriangle,
   faGifts,
   faPlus
 } from '@fortawesome/free-solid-svg-icons'
@@ -16,6 +17,7 @@ library.add(faPlus)
 library.add(faList)
 library.add(faPlay)
 library.add(faFont)
+library.add(faExclamationTriangle)
 library.add(faMousePointer)
 library.add(faCloudSun)
 library.add(faGifts)

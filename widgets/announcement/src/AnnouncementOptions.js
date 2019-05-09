@@ -50,19 +50,6 @@ class AnnouncementOptions extends Component {
               value={textColor}
               onChange={this.handleChange}
             />
-            <Input
-              inline={false}
-              label={'Animation'}
-              type={'select'}
-              name={'animation'}
-              value={animation}
-              choices={[
-                { id: 'confetti', label: 'Confetti' },
-                { id: 'balloons', label: 'Balloons' }
-              ]}
-              onChange={this.handleChange}
-              expand={false}
-            />
           </InlineInputGroup>
 
           <Input

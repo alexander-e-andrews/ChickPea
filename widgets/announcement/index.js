@@ -7,7 +7,7 @@ export default class Announcement extends BaseWidget {
     super({
       name: 'Announcement',
       version: '0.1',
-      icon: 'gifts',
+      icon: 'exclamation-triangle',
       defaultData: {
         text: 'You did not fill this out',
         color: '#34495e',
