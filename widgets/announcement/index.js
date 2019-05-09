@@ -12,6 +12,7 @@ export default class Announcement extends BaseWidget {
         text: 'You did not fill this out',
         color: '#34495e',
         textColor: '#ffffff',
+        titleColor: '#fff0f0',
         accentColor: '#A0A0A0'
       }
     })

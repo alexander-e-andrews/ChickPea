@@ -13,6 +13,7 @@ const DEFAULT_COLOR = '#34495e'
 const DEFAULT_TEXT_COLOR = '#ffffff'
 const DEFAULT_ACCENT_COLOR = '#A0A0A0'
 const DEFAULT_TEXT = 'You did not fill this out'
+const DEFAULT_TITLE_TEXT_COLOR = '#fff0f0'
 
 class AnnouncementContent extends Component {
   render() {
@@ -20,6 +21,7 @@ class AnnouncementContent extends Component {
       data: {
         text = DEFAULT_TEXT,
         textColor = DEFAULT_TEXT_COLOR,
+        titleTextColor = DEFAULT_TITLE_TEXT_COLOR,
         color = DEFAULT_COLOR,
         accentColor = DEFAULT_ACCENT_COLOR
       } = {}
@@ -27,8 +29,9 @@ class AnnouncementContent extends Component {
     return (
       <div className='announce'>
         <div className='background' />
-        <div className='title'>
-          {'Announcment'} <div className='text'>{text}</div>
+        <div>
+          <header className='title'>{'Announcement'}</header>
+          <div className='text'>{text}</div>
         </div>
 
         <style jsx>
@@ -45,8 +48,9 @@ class AnnouncementContent extends Component {
               font-family: 'Open Sans', sans-serif;
               display: flex;
               flex-direction: row;
-              justify-content: top, center;
+              justify-content: top;
               align-items: center;
+              border: solid green 1px;
             }
             .announce .background {
               width: 100%;
@@ -55,22 +59,33 @@ class AnnouncementContent extends Component {
               top: 0;
               left: 0;
               z-index: 0;
+              border: solid red 1px;
             }
             .announce .text {
+              color: ${textColor};
+              position: relative;
+              left: 0%;
+              top: 5%;
               font-family: 'Open Sans', sans-serif;
               font-size: 0.9em;
               padding: 16px;
               font-weight: 600;
-              text-align: center;
+              text-align: left;
               z-index: 1;
+              border: solid red 1px;
             }
             .announce .title {
+              color: ${titleTextColor};
+              position: absolute;
+              top: 5px;
               font-family: 'Open Sans', sans-serif;
               font-size: 1.5em;
               padding: 16px;
               font-weight: 600;
               text-align: top, left;
               z-index: 1;
+              border-bottom: thick double ${accentColor};
+              border: solid red 1px;
             }
           `}
         </style>

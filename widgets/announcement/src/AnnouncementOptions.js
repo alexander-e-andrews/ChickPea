@@ -6,11 +6,12 @@ import AnnouncementContent from './AnnouncementContent'
 class AnnouncementOptions extends Component {
   constructor(props) {
     super(props)
-    const { text, color, textColor, accentColor} = props.data || {}
+    const { text, color, textColor, titleTextColor, accentColor } = props.data || {}
     this.state = {
       text,
       color,
       textColor,
+      titleTextColor,
       accentColor
     }
   }
@@ -27,7 +28,7 @@ class AnnouncementOptions extends Component {
   }
 
   render() {
-    const { text, color, textColor, accentColor } = this.state
+    const { text, color, textColor, titleTextColor, accentColor } = this.state
     return (
       <div className={'container'}>
         <Form>
@@ -48,6 +49,14 @@ class AnnouncementOptions extends Component {
               type={'color'}
               name={'textColor'}
               value={textColor}
+              onChange={this.handleChange}
+            />
+            <Input
+              inline={false}
+              label={'Title Text color'}
+              type={'color'}
+              name={'titleTextColor'}
+              value={titleTextColor}
               onChange={this.handleChange}
             />
           </InlineInputGroup>
