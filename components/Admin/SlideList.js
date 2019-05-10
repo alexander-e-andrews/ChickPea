@@ -5,8 +5,7 @@ import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-ho
 
 import SlideCard from './SlideCard'
 
-import { getSlides } from '../../actions/slide'
-import { reorderSlides } from '../../actions/slideshow'
+import { getSlides, updateSlide } from '../../actions/slide'
 
 const SortableItem = SortableElement(SlideCard)
 
@@ -58,15 +57,19 @@ class SlideList extends Component {
   }
 
   onSortEnd = ({ oldIndex, newIndex }) => {
-    const { slideshow } = this.props
-    this.setState(
-      ({ slides }) => ({
-        slides: arrayMove(slides, oldIndex, newIndex)
-      }),
-      () => {
-        reorderSlides(slideshow, oldIndex, newIndex)
+    this.setState(({ slides }) => ({
+      slides: arrayMove(slides, oldIndex, newIndex)
+    }))
+    i = 0
+    x = oldIndex - newIndex
+    for (const slide of this.state.slides) {
+      if (x < 0) {
+      } else if (x > 0) {
       }
-    )
+
+      updateSlide(slide, null, this.state)
+      i++
+    }
   }
 
   refresh = () => {
