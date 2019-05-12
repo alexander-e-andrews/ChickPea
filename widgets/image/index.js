@@ -2,7 +2,7 @@ import BaseWidget from '../base_widget'
 import ImageContent from './src/ImageContent'
 import ImageOptions from './src/ImageOptions'
 
-export default class Image extends BaseWidget {
+export default class Web extends BaseWidget {
   constructor() {
     super({
       name: 'Image',

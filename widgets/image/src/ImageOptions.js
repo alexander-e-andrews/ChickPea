@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Form, Input, InlineInputGroup } from '../../../components/Form'
 import { standaloneUpload } from '../../../actions/slide'
 
-class ImageOptions extends Component {
+class WebOptions extends Component {
   constructor(props) {
     super(props)
     const { title, color, fit, url } = props.data || {}
@@ -53,7 +53,6 @@ class ImageOptions extends Component {
               label={'Title (Optional)'}
               type={'text'}
               name={'title'}
-              placeholder={'Optional title...'}
               value={title}
               onChange={this.handleChange}
               expand={true}
@@ -100,4 +99,4 @@ class ImageOptions extends Component {
   }
 }
 
-export default ImageOptions
+export default WebOptions
