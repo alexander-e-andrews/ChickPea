@@ -88,7 +88,6 @@ class ListOptions extends Component {
               type={'text'}
               name={'title'}
               value={title}
-              placeholder={'Optional title...'}
               onChange={this.handleChange}
             />
             <Input
@@ -108,8 +107,6 @@ class ListOptions extends Component {
               onChange={this.handleChange}
             />
           </InlineInputGroup>
-          <hr className='separator' />
-          <span className='subheader'>Element List</span>
           <div className='list'>
             {list.map(({ label, text }, index) => (
               <InlineInputGroup>
@@ -181,20 +178,6 @@ class ListOptions extends Component {
               min-height: 40px;
               justify-content: center;
               align-items: center;
-            }
-            .separator {
-              border: none;
-              border-bottom: 1px solid #ededed;
-              width: 100%;
-            }
-            .subheader {
-              margin-right: 16px;
-              color: #666666;
-              font-family: 'Open Sans', sans-serif;
-              font-weight: 600;
-              display: inline-block;
-              padding-top: 16px;
-              padding-bottom: 16px;
             }
           `}
         </style>
