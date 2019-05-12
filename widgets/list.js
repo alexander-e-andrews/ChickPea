@@ -1,1 +1,1 @@
-module.exports = ['slideshow', 'weather', 'congrats', 'youtube', 'web', 'lists']
+module.exports = ['slideshow', 'weather', 'congrats', 'youtube', 'web', 'image']
