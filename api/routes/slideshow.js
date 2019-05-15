@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const arrayMove = require('array-move')
 
 const Slideshow = require('../models/Slideshow')
 const SlideshowHelper = require('../helpers/slideshow_helper')
@@ -25,7 +26,7 @@ router
         if (!slideshow) {
           next(new Error('Slideshow not created'))
         }
-        return CommonHelper.broadcastUpdate(res.io).then(() => res.json(slideshow))
+        return CommonHelper.broadcastUpdate().then(() => res.json(slideshow))
       })
       .catch(err => next(err))
   })
@@ -61,6 +62,28 @@ router
       })
       .catch(err => next(err))
   })
+  .patch('/:id/reorder', (req, res, next) => {
+    const { id } = req.params
+    return Slideshow.findById(id)
+      .then(slideshow => {
+        if (!slideshow) return next(new Error('Slideshow not found'))
+
+        const oldIndex = req.body.oldIndex
+        const newIndex = req.body.newIndex
+        console.log('moving from ', oldIndex, ' to ', newIndex)
+        console.log('old slideshow.slides', slideshow.slides)
+        slideshow.slides = arrayMove(slideshow.slides, oldIndex, newIndex)
+        console.log('new slideshow.slides', slideshow.slides)
+
+        return slideshow
+          .save()
+          .then(() => CommonHelper.broadcastUpdate(res.io))
+          .then(() => {
+            return res.json({ success: true })
+          })
+      })
+      .catch(err => next(err))
+  })
   .patch('/:id', (req, res, next) => {
     const { id } = req.params
     return Slideshow.findById(id)
@@ -71,7 +94,7 @@ router
 
         return slideshow
           .save()
-          .then(() => CommonHelper.broadcastUpdate(res.io))
+          .then(CommonHelper.broadcastUpdate)
           .then(() => {
             return res.json({ success: true })
           })

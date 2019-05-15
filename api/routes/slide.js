@@ -43,12 +43,18 @@ router
       title: req.body.title,
       description: req.body.description,
       duration: req.body.duration,
-      slideshow: req.body.slideshow,
-      order: req.body.order
+      slideshow: req.body.slideshow
     })
 
     return SlideHelper.addSlide(newSlide, res, next)
   })
+
+// Route: /api/v1/slide/standalone_upload
+router.post('/standalone_upload', upload.single('data'), (req, res, next) => {
+  if (!req.file || !req.file.path) return next(new Error('Missing file upload'))
+
+  return res.json({ success: true, url: '/' + req.file.path })
+})
 
 // Route: /api/v1/slide/:id
 router
@@ -79,7 +85,7 @@ router
         // Either the uploaded file if found or the text data field
         const data = req.file && req.file.path ? '/' + req.file.path : req.body.data
 
-        if (data) slide.data = data
+        if (data != null && typeof data != undefined) slide.data = data
         if ('type' in req.body) slide.type = req.body.type
         if ('title' in req.body) slide.title = req.body.title
         if ('description' in req.body) slide.description = req.body.description
@@ -87,7 +93,7 @@ router
 
         return slide
           .save()
-          .then(() => CommonHelper.broadcastUpdate(res.io))
+          .then(CommonHelper.broadcastUpdate)
           .then(() => {
             return res.json({ success: true })
           })

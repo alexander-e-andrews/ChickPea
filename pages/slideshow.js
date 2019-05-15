@@ -1,13 +1,20 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons'
+import _ from 'lodash'
 
 import Frame from '../components/Admin/Frame.js'
 import SlideList from '../components/Admin/SlideList.js'
+import SlideEditDialog from '../components/Admin/SlideEditDialog'
 import Upload from '../components/Upload.js'
+import Button from '../components/Form/Button.js'
 import Dialog from '../components/Dialog.js'
 
 import { getSlideshow, updateSlideshow } from '../actions/slideshow'
+
+const updateSlideshowThrottled = _.debounce((id, data) => {
+  return updateSlideshow(id, data)
+}, 300)
 
 class Slideshow extends React.Component {
   constructor(props) {
@@ -15,6 +22,7 @@ class Slideshow extends React.Component {
     const { slideshow } = props
     this.state = { slideshow }
     this.slideList = React.createRef()
+    this.dialog = React.createRef()
   }
 
   static async getInitialProps({ query, req }) {
@@ -34,6 +42,10 @@ class Slideshow extends React.Component {
     })
   }
 
+  openAddDialog = () => {
+    return Promise.resolve(this.dialog && this.dialog.current.open())
+  }
+
   render() {
     const { slideshow } = this.state
     return (
@@ -42,8 +54,8 @@ class Slideshow extends React.Component {
         <div className='editable-title'>
           <input
             className='input'
-            placeholder='Enter slideshow name...'
-            value={(slideshow && slideshow.title) || 'Untitled Slideshow'}
+            placeholder='Untitled Slideshow'
+            value={slideshow && slideshow.title}
             onChange={event => {
               const target = event.target
               const title = target && target.value
@@ -55,7 +67,7 @@ class Slideshow extends React.Component {
                   }
                 },
                 () => {
-                  updateSlideshow(slideshow._id, { title }).then(this.refresh)
+                  updateSlideshowThrottled(slideshow._id, { title })
                 }
               )
             }}
@@ -70,6 +82,17 @@ class Slideshow extends React.Component {
         </div>
         <div className='wrapper'>
           <Upload slideshow={slideshow && slideshow._id} refresh={this.refresh} />
+          <SlideEditDialog
+            slideshow={slideshow && slideshow._id}
+            refresh={this.refresh}
+            ref={this.dialog}
+          />
+          <Button
+            text='Add a slide'
+            color='#7bc043'
+            style={{ flex: 1, margin: 0, width: '100%', marginTop: 20 }}
+            onClick={this.openAddDialog}
+          />
           <SlideList ref={this.slideList} slideshow={slideshow && slideshow._id} />
           <Dialog />
         </div>

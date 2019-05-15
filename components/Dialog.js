@@ -9,7 +9,9 @@ const modalStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
-    border: 'none'
+    border: 'none',
+    maxHeight: '80vh',
+    overflowY: 'auto'
   },
   overlay: { zIndex: 3, backgroundColor: 'rgba(0,0, 0, 0.6)' }
 }
@@ -34,13 +36,13 @@ class Dialog extends React.Component {
   }
 
   render() {
-    const { children } = this.props
+    const { children, style = {} } = this.props
     return (
       <div className='container'>
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.close}
-          style={modalStyles}
+          style={{ ...modalStyles, ...style }}
           ariaHideApp={false}
         >
           <div className='form'>{children}</div>

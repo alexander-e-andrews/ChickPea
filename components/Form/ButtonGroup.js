@@ -2,15 +2,19 @@ import React from 'react'
 
 class ButtonGroup extends React.Component {
   render() {
-    const { children } = this.props
+    const { children, align = 'right', style = {} } = this.props
     return (
-      <div className={'btnGroup'}>
+      <div className={'btnGroup'} style={style}>
         {children}
         <style jsx>{`
           .btnGroup {
             display: flex;
             flex-direction: row;
-            justify-content: flex-end;
+            justify-content: ${align == 'right'
+              ? 'flex-end'
+              : align == 'center'
+              ? 'center'
+              : 'flex-start'};
             flex: 1;
           }
         `}</style>

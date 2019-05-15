@@ -1,5 +1,17 @@
 import React from 'react'
 import ColorPicker from './ColorPicker'
+import FreeformEditor from '../FreeformEditor'
+import ContentLoader from 'react-content-loader'
+import dynamic from 'next/dynamic'
+
+const DropzoneWithNoSSR = dynamic(() => import('react-dropzone'), {
+  ssr: false,
+  loading: () => (
+    <ContentLoader height={120} width={640}>
+      <rect x='0' y='0' rx='5' ry='5' width='100%' height='100' />
+    </ContentLoader>
+  )
+})
 
 class Input extends React.Component {
   constructor(props) {
@@ -27,6 +39,23 @@ class Input extends React.Component {
     this.setState({ value }, () => {
       onChange(name, value)
     })
+  }
+
+  handleOnDropAccepted = acceptedFiles => {
+    const { onChange = () => {} } = this.props
+    const file = Object.assign(acceptedFiles[acceptedFiles.length - 1], {
+      preview:
+        URL && URL.createObjectURL
+          ? URL.createObjectURL(acceptedFiles[acceptedFiles.length - 1])
+          : typeof window !== 'undefined' && window.webkitURL
+          ? window.webkitURL.createObjectURL(acceptedFiles[acceptedFiles.length - 1])
+          : null
+    })
+    onChange('upload', file)
+  }
+
+  handleOnDropRejected = rejectedFiles => {
+    alert('This file type is not allowed:' + rejectedFiles[rejectedFiles.length - 1].name)
   }
 
   render() {
@@ -68,15 +97,35 @@ class Input extends React.Component {
         ) : type == 'color' ? (
           <ColorPicker color={value} onChange={this.handleChange} />
         ) : type == 'photo' ? (
-          <div className={'photo'} className={className}>
-            <div
-              className={'thumbnail'}
-              style={{
-                backgroundImage: `url(${value})`
-              }}
-            />
-            <span className={'link'}>{value}</span>
-          </div>
+          <DropzoneWithNoSSR
+            accept='image/*'
+            onDropAccepted={this.handleOnDropAccepted}
+            onDropRejected={this.handleOnDropRejected}
+            multiple={false}
+          >
+            {({ getRootProps, getInputProps, isDragActive }) => {
+              return (
+                <div {...getRootProps()} className='upload'>
+                  <input {...getInputProps()} />
+                  {isDragActive || (!value || value == '') ? (
+                    <div className={'photo-upload'}>Drop a photo here...</div>
+                  ) : (
+                    <div className={'photo'}>
+                      <div
+                        className={'thumbnail'}
+                        style={{
+                          backgroundImage: `url(${value})`
+                        }}
+                      />
+                      <span className={'link'}>{value}</span>
+                    </div>
+                  )}
+                </div>
+              )
+            }}
+          </DropzoneWithNoSSR>
+        ) : type == 'freeform' ? (
+          <FreeformEditor data={value} onChange={this.handleChange} />
         ) : (
           <textarea
             onChange={this.handleInputChange}
@@ -88,7 +137,7 @@ class Input extends React.Component {
         <style jsx>{`
           .inputGroup {
             margin-bottom: 16px;
-            display: ${expand ? 'flex' : 'inline-block'};
+            display: ${!inline ? 'flex' : 'inline-block'};
             flex-direction: ${inline ? 'row' : 'column'};
             justify-content: flex-start;
           }
@@ -107,7 +156,8 @@ class Input extends React.Component {
           input,
           textarea,
           select,
-          .photo {
+          .photo,
+          .photo-upload {
             font-family: 'Open Sans', sans-serif;
             color: #333;
             background-color: #f7f7f7;
@@ -138,6 +188,7 @@ class Input extends React.Component {
             -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;
+            padding: 16px;
           }
 
           input[type='number'] {
@@ -146,11 +197,30 @@ class Input extends React.Component {
             text-align: center;
           }
 
+          .upload {
+            display: ${inline ? 'inline-block' : 'flex'};
+          }
+
           .photo {
             display: flex;
             flex-direction: row;
             align-items: center;
             padding: 8px;
+          }
+
+          .photo-upload {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 8px;
+            font-family: 'Open Sans', sans-serif;
+            text-align: center;
+            border-radius: 4px;
+            border: 2px dashed #adadad;
+            cursor: pointer;
+            background: white;
+            outline: none;
+            height: 40px;
           }
 
           .photo .link {

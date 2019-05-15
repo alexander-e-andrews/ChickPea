@@ -18,7 +18,7 @@ router.use(
     Model: Widget,
     afterActions: [
       {
-        middlewares: [CommonHelper.broadcastUpdateMiddleware],
+        middlewares: [CommonHelper.broadcastUpdate],
         only: ['update', 'create', 'delete']
       }
     ]

@@ -6,7 +6,7 @@ function deleteSlides(slides, res) {
     slides.map(slide => {
       return Slide.findByIdAndRemove(slide)
     })
-  ).then(() => CommonHelper.broadcastUpdate(res.io))
+  ).then(CommonHelper.broadcastUpdate)
 }
 
 module.exports = {

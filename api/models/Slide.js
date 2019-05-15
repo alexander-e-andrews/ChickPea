@@ -2,17 +2,16 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const Slide = new Schema({
-  data: { type: String, default: 'https://i.imgur.com/3MlKktU.jpg' },
+  data: { type: String, default: '' },
   type: {
     type: String,
-    default: 'photo',
-    enum: ['photo', 'web', 'youtube', 'video']
+    default: 'web',
+    enum: ['photo', 'web', 'youtube', 'video', 'freeform']
   },
   title: { type: String },
   description: { type: String },
   duration: { type: Number, default: 5, min: 1 },
-  slideshow: { type: Schema.Types.ObjectId, ref: 'Slideshow' },
-  order: { type: Number }
+  slideshow: { type: Schema.Types.ObjectId, ref: 'Slideshow' }
 })
 
 module.exports = mongoose.model('Slide', Slide)
