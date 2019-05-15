@@ -13,7 +13,7 @@ export default class Announcement extends BaseWidget {
         color: '#34495e',
         textColor: '#ffffff',
         titleColor: '#fff0f0',
-        accentColor: '#A0A0A0'
+        accentColor: '#e95420'
       }
     })
   }

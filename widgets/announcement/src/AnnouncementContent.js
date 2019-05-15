@@ -6,6 +6,7 @@
 
 import React, { Component } from 'react'
 import { config } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 config.autoAddCss = false
 
@@ -30,7 +31,11 @@ class AnnouncementContent extends Component {
       <div className='announce'>
         <div className='background' />
         <div>
-          <header className='title'>{'Announcement'}</header>
+          <div>
+            <header className='title'>
+            <FontAwesomeIcon icon={'exclamation-triangle'} size={'0.4x'} color={accentColor} />
+            {' Announcement'}</header>
+          </div>
           <div className='text'>{text}</div>
         </div>
 
@@ -50,7 +55,6 @@ class AnnouncementContent extends Component {
               flex-direction: row;
               justify-content: top;
               align-items: center;
-              border: solid green 1px;
             }
             .announce .background {
               width: 100%;
@@ -59,33 +63,30 @@ class AnnouncementContent extends Component {
               top: 0;
               left: 0;
               z-index: 0;
-              border: solid red 1px;
             }
             .announce .text {
               color: ${textColor};
               position: relative;
               left: 0%;
-              top: 5%;
+              top: 75%;
               font-family: 'Open Sans', sans-serif;
               font-size: 0.9em;
-              padding: 16px;
+              padding: 0px;
               font-weight: 600;
               text-align: left;
               z-index: 1;
-              border: solid red 1px;
             }
             .announce .title {
               color: ${titleTextColor};
               position: absolute;
               top: 5px;
               font-family: 'Open Sans', sans-serif;
-              font-size: 1.5em;
-              padding: 16px;
+              font-size: 1.4em;
+              padding: 0px;
               font-weight: 600;
-              text-align: top, left;
+              text-align: left;
               z-index: 1;
               border-bottom: thick double ${accentColor};
-              border: solid red 1px;
             }
           `}
         </style>

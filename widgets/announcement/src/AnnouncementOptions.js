@@ -59,6 +59,14 @@ class AnnouncementOptions extends Component {
               value={titleTextColor}
               onChange={this.handleChange}
             />
+            <Input
+              inline={false}
+              label={'Accent color'}
+              type={'color'}
+              name={'accentColor'}
+              value={accentColor}
+              onChange={this.handleChange}
+            />
           </InlineInputGroup>
 
           <Input
